@@ -7,12 +7,12 @@ using System.Text;
 
 namespace Pomelo.Security.Ssl
 {
-    public class OpenSSL
+    public class OpenSsl
     {
         private readonly string openSslPath;
         private readonly string workingDirectory;
 
-        public OpenSSL(string openSslPath)
+        public OpenSsl(string openSslPath)
         {
             this.openSslPath = openSslPath;
             this.workingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);

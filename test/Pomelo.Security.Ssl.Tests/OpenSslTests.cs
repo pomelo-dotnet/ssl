@@ -4,22 +4,22 @@ using Xunit;
 
 namespace Pomelo.Security.Ssl.Tests
 {
-    public class UnitTest1
+    public class OpenSslTests
     {
-        private readonly OpenSSL ssl;
+        private readonly OpenSsl ssl;
 
-        public UnitTest1()
+        public OpenSslTests()
         {
             if (Directory.Exists("ssldb"))
             {
                 Directory.Delete("ssldb", true);
             }
 
-            ssl = new OpenSSL("C:\\Program Files\\OpenSSL-Win64\\bin\\openssl.exe");
+            ssl = new OpenSsl("C:\\Program Files\\OpenSSL-Win64\\bin\\openssl.exe");
         }
 
         [Fact]
-        public void Test1()
+        public void FullWorkFlowTest()
         {
             // Generate Root CA
             ssl.GenerateRsaPrivateKey("ca.key", "123456");
@@ -51,7 +51,6 @@ namespace Pomelo.Security.Ssl.Tests
             ssl.GenerateRsaPrivateKey("codesign.key", "123456");
             ssl.GenerateCsr("codesign.csr", "subsub.key", "123456", "CN", "Shanghai", "Shanghai", "Pomelo Foundation", "Open Source Department", "Pomelo Foundation", "codesign@pomelo.cloud");
             ssl.SignCodeSigningCert("codesign.csr", "codesign.crt", 366, "subsub.crt", "subsub.key", "123456", crlUrls: new[] { "http://crl.pomelo.cloud/pomelo.crl" });
-
         }
     }
 }

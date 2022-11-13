@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1C165284-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.Security.Ssl.Tests", "test\Pomelo.Security.Ssl.Tests\Pomelo.Security.Ssl.Tests.csproj", "{21CEE13B-F7B2-4C96-95F0-D9D470520ECA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.Security.CaWeb", "src\Pomelo.Security.CaWeb\Pomelo.Security.CaWeb.csproj", "{3F09995F-11C2-46A6-8208-181A115C13AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{21CEE13B-F7B2-4C96-95F0-D9D470520ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21CEE13B-F7B2-4C96-95F0-D9D470520ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21CEE13B-F7B2-4C96-95F0-D9D470520ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F09995F-11C2-46A6-8208-181A115C13AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F09995F-11C2-46A6-8208-181A115C13AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F09995F-11C2-46A6-8208-181A115C13AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F09995F-11C2-46A6-8208-181A115C13AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9A85BA07-045D-4AF7-9F19-B6BE9FE32D40} = {E28E0343-6207-4DBE-823E-259AF0144813}
 		{21CEE13B-F7B2-4C96-95F0-D9D470520ECA} = {1C165284-ADC1-4F9C-A251-EA9FD17C5AB5}
+		{3F09995F-11C2-46A6-8208-181A115C13AA} = {E28E0343-6207-4DBE-823E-259AF0144813}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17D6406A-E0F1-4B79-8F7E-FBE18EA279FA}
