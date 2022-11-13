@@ -34,10 +34,13 @@ namespace Pomelo.Security.CaWeb.Models
         public CertificateType Type { get; set; }
 
         [JsonIgnore]
-        public byte[] KeyFile { get; set; } // Maybe stored
+        public string KeyFile { get; set; } // Maybe stored
 
         [JsonIgnore]
-        public byte[] CrtFile { get; set; }
+        public string KeyPassword { get; set; } // Maybe stored
+
+        [JsonIgnore]
+        public string CrtFile { get; set; }
 
         public virtual ICollection<Certificate> Children { get; set; } = new List<Certificate>();
     }
