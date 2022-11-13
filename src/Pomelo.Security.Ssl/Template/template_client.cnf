@@ -94,7 +94,7 @@ crlnumber	= $dir/crlnumber	# the current crl number
 crl		= $dir/crl.pem 		# The current CRL
 private_key	= $dir/private/cakey.pem# The private key
 
-x509_extensions	= server_cert		# The extensions to add to the cert
+x509_extensions	= client_cert		# The extensions to add to the cert
 
 # Comment out the following two lines for the "traditional"
 # (and highly broken) format.
@@ -389,10 +389,8 @@ oldcert = $insta::certout # insta.cert.pem
 cmd = rr
 oldcert = $insta::certout # insta.cert.pem
 
-[server_cert]
-{DNS}
-subjectKeyIdentifier = hash
-basicConstraints = critical, CA:false, pathlen:0
+[client_cert]
+basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
-extendedKeyUsage = critical, serverAuth
+extendedKeyUsage = critical, clientAuth
 {CRL_URLS}

@@ -320,6 +320,112 @@ namespace Pomelo.Security.Ssl
             }
         }
 
+        public void SignClientCert(
+            string csrFile,
+            string outFile,
+            int days,
+            string caCrtFile,
+            string caKeyFile,
+            string caKeyPassword,
+            string algorithm = "sha256",
+            string[] crlUrls = null)
+        {
+            var crlSection = new StringBuilder();
+            if (crlUrls != null && crlUrls.Length > 0)
+            {
+                crlSection.Append($"crlDistributionPoints = {string.Join(",", crlUrls.Select(x => "URI:" + x))}");
+            }
+
+            var cnfFile = Guid.NewGuid() + ".cnf";
+            var cnfContent = File.ReadAllText(Path.Combine("Template", "template_client.cnf"));
+            cnfContent = cnfContent
+                .Replace("{CRL_URLS}", crlSection.ToString());
+            File.WriteAllText(cnfFile, cnfContent);
+
+            using var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = openSslPath,
+                    Arguments = $"ca -config {cnfFile} -cert \"{caCrtFile}\" -keyfile \"{caKeyFile}\" -passin pass:{caKeyPassword} -days {days} -md {algorithm} -in {csrFile} -out \"{Path.GetFileName(outFile)}\" -outdir ./",
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardInput = true,
+                    WorkingDirectory = workingDirectory
+                }
+            };
+
+            process.Start();
+            process.StandardInput.WriteLine("y");
+            process.StandardInput.WriteLine("y");
+            process.StandardInput.Close();
+            process.WaitForExit();
+
+            if (File.Exists(cnfFile))
+            {
+                File.Delete(cnfFile);
+            }
+
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException(process.StandardError.ReadToEnd());
+            }
+        }
+
+        public void SignCodeSigningCert(
+            string csrFile,
+            string outFile,
+            int days,
+            string caCrtFile,
+            string caKeyFile,
+            string caKeyPassword,
+            string algorithm = "sha256",
+            string[] crlUrls = null)
+        {
+            var crlSection = new StringBuilder();
+            if (crlUrls != null && crlUrls.Length > 0)
+            {
+                crlSection.Append($"crlDistributionPoints = {string.Join(",", crlUrls.Select(x => "URI:" + x))}");
+            }
+
+            var cnfFile = Guid.NewGuid() + ".cnf";
+            var cnfContent = File.ReadAllText(Path.Combine("Template", "template_codesign.cnf"));
+            cnfContent = cnfContent
+                .Replace("{CRL_URLS}", crlSection.ToString());
+            File.WriteAllText(cnfFile, cnfContent);
+
+            using var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = openSslPath,
+                    Arguments = $"ca -config {cnfFile} -cert \"{caCrtFile}\" -keyfile \"{caKeyFile}\" -passin pass:{caKeyPassword} -days {days} -md {algorithm} -in {csrFile} -out \"{Path.GetFileName(outFile)}\" -outdir ./",
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardInput = true,
+                    WorkingDirectory = workingDirectory
+                }
+            };
+
+            process.Start();
+            process.StandardInput.WriteLine("y");
+            process.StandardInput.WriteLine("y");
+            process.StandardInput.Close();
+            process.WaitForExit();
+
+            if (File.Exists(cnfFile))
+            {
+                File.Delete(cnfFile);
+            }
+
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException(process.StandardError.ReadToEnd());
+            }
+        }
+
         public string GetCommonNameFromCsr(string csrFile)
         {
             using var process = new Process
