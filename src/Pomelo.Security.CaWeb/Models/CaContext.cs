@@ -31,7 +31,8 @@ namespace Pomelo.Security.CaWeb.Models
 
             builder.Entity<Request>(e =>
             {
-                e.HasIndex(x => new { x.CreatedAt, x.ValidatedAt, x.Status });
+                e.HasIndex(x => x.CommonName).IsFullText();
+                e.HasIndex(x => new { x.CreatedAt, x.HandledAt, x.Status });
                 e.HasIndex(x => x.Type);
             });
         }

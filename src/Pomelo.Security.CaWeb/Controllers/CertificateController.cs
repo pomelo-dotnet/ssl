@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.Security.CaWeb.Models;
 using Pomelo.Security.CaWeb.Models.ViewModels;
 
-
 namespace Pomelo.Security.CaWeb.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class CertificateController : ControllerBase
     {
         [HttpGet]
@@ -22,6 +23,18 @@ namespace Pomelo.Security.CaWeb.Controllers
         {
             var certificates = await db.Certificates
                 .Where(x => x.Type == CertificateType.RootCA)
+                .ToListAsync(cancellationToken);
+
+            return ApiResult(certificates);
+        }
+
+        [HttpGet("mine")]
+        public async ValueTask<ApiResult<List<Certificate>>> GetMine(
+            [FromServices] CaContext db,
+            CancellationToken cancellationToken = default)
+        {
+            var certificates = await db.Certificates
+                .Where(x => x.Username == User.Identity.Name)
                 .ToListAsync(cancellationToken);
 
             return ApiResult(certificates);

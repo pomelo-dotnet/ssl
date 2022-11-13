@@ -28,10 +28,18 @@ namespace Pomelo.Security.CaWeb.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public DateTime? ValidatedAt { get; set; }
+        public DateTime? HandledAt { get; set; }
 
         public string ValidationMessage { get; set; }
 
+        [MaxLength(512)]
+        public string CommonName { get; set; }
+
         public string CsrContent { get; set; }
+
+        [ForeignKey(nameof(Certificate))]
+        public Guid? CertificateId { get; set; }
+
+        public virtual Certificate Certificate { get; set; }
     }
 }
