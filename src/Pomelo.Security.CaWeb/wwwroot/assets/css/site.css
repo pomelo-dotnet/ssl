@@ -1,0 +1,24 @@
+﻿body {
+    margin: 0 auto;
+    background: linear-gradient(to bottom right, #DFE9F2, #B5DAED) no-repeat;
+    background-attachment: fixed;
+}
+
+.main {
+    left: 50%;
+    margin-left: -480px;
+    width: 960px;
+    background: #fff;
+    top: 70px;
+    bottom: 70px;
+    position: fixed;
+    box-shadow: 0 0 50px #7da7c4cd;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    border-right: 1px solid #ddd;
+}

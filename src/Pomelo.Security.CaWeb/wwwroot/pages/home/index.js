@@ -1,0 +1,3 @@
+﻿Page({
+    layout: '/shared/layout'
+});

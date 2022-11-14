@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Pomelo.Security.Ssl\Pomelo.Security.Ssl.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\img\" />
+  </ItemGroup>
+
 </Project>

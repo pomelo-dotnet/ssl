@@ -21,14 +21,12 @@ namespace Pomelo.Security.CaWeb
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddPomeloOpenSsl(Configuration["OpenSsl:Path"]);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -43,9 +41,8 @@ namespace Pomelo.Security.CaWeb
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UsePomeloVueMiddleware();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
