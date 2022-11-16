@@ -50,3 +50,89 @@
     font-size: 32px;
     font-weight: lighter;
 }
+
+.content {
+    position: absolute;
+    left: 321px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.content-header {
+    line-height: 60px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 15px;
+    color: #666;
+}
+
+.btn-sign-out {
+    margin-left: 15px;
+    color: #3b92cd;
+    cursor: pointer;
+}
+
+    .btn-sign-out:hover {
+        color: #54b2f0;
+    }
+
+.content-body {
+    position: absolute;
+    right: 0;
+    top: 61px;
+    bottom: 0;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.block {
+    border-radius: 10px;
+    background: #f8f8f8;
+    color: #666 !important;
+    margin-bottom: 5px;
+}
+
+.block .col {
+    display: inline-block;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: lighter;
+    vertical-align: middle;
+}
+
+.cert-cn {
+    font-size: 16px;
+    color: #666!important;
+}
+
+.cert-ca {
+    color: #0d7b98;
+    margin-top: 5px;
+}
+
+.cert-duration {
+    border: 1px solid #3bb0ce;
+    padding: 4px 8px;
+    border-radius: 32px;
+    box-shadow: 0 0 5px #0d7b9866 inset;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.cert-status {
+    border: 1px solid #3bb0ce;
+    padding: 4px 8px;
+    border-radius: 32px;
+    box-shadow: 0 0 5px #0d7b9866 inset;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+    .cert-status.active {
+        border: 1px solid #5dd655;
+        box-shadow: 0 0 5px #5dd65566 inset;
+        color: #5dd655;
+    }
