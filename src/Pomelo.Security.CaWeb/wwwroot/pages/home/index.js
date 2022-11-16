@@ -1,3 +1,4 @@
 ﻿Page({
-    layout: '/shared/layout'
+    layout: '/shared/layout',
+    style: true
 });

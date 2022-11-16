@@ -1,0 +1,52 @@
+﻿.left-side-bar {
+    position: absolute;
+    left: 61px;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    background: linear-gradient(to bottom right, #a5e2f2, #89C8F3) no-repeat;
+    background-attachment: fixed;
+}
+
+.header {
+    padding: 6px;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+}
+
+    .header * {
+        vertical-align: top;
+    }
+
+.logo {
+    width: 48px;
+    height: 48px;
+}
+
+.logo-title {
+    color: #fff;
+    text-shadow: 0 0 5px #3b92cd;
+    font-size: 24px;
+    line-height: 48px;
+    margin-left: 5px;
+}
+
+.side-bar-body {
+    padding: 30px;
+    color: #fff;
+}
+
+.side-bar-body-section {
+    text-shadow: 0 0 5px #3b92cd;
+    margin-bottom: 30px;
+}
+
+.side-bar-body-section-title {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.side-bar-body-section-value {
+    font-size: 32px;
+    font-weight: lighter;
+}

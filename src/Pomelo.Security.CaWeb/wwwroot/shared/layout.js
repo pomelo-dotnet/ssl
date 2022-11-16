@@ -1,1 +1,3 @@
-﻿Layout({});
+﻿Layout({
+    style: true
+});
