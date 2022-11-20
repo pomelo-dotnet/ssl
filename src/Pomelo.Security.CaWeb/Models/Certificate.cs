@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -31,6 +32,9 @@ namespace Pomelo.Security.CaWeb.Models
 
         public virtual User Owner { get; set; }
 
+        [MaxLength(128)]
+        public string CommonName { get; set; }
+
         public CertificateType Type { get; set; }
 
         [JsonIgnore]
@@ -41,6 +45,8 @@ namespace Pomelo.Security.CaWeb.Models
 
         [JsonIgnore]
         public string CrtFile { get; set; }
+
+        public string CrlUrls { get; set; }
 
         public virtual ICollection<Certificate> Children { get; set; } = new List<Certificate>();
     }
