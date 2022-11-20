@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\img\" />
+    <Folder Include="wwwroot\pages\settings\" />
   </ItemGroup>
 
 </Project>

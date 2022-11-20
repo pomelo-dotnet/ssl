@@ -1,3 +1,4 @@
 ﻿{
-  "/": "/pages/home/index"
+  "/": "/pages/home/index",
+  "/request": "/pages/request/index"
 }

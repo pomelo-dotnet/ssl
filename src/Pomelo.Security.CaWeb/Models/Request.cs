@@ -11,6 +11,12 @@ namespace Pomelo.Security.CaWeb.Models
         Rejected
     }
 
+    public enum RequestMode
+    {
+        FromCsr,
+        FromInfo
+    }
+
     public class Request
     {
         public Guid Id { get; set; }
@@ -30,12 +36,21 @@ namespace Pomelo.Security.CaWeb.Models
 
         public DateTime? HandledAt { get; set; }
 
+        public string RequestMessage { get; set; }
+
         public string ValidationMessage { get; set; }
+
+        public string Dns { get; set; }
 
         [MaxLength(512)]
         public string CommonName { get; set; }
 
         public string CsrContent { get; set; }
+
+        public string KeyContent { get; set; }
+
+        [MaxLength(32)]
+        public string KeyPassword { get; set; }
 
         [ForeignKey(nameof(Certificate))]
         public Guid? CertificateId { get; set; }

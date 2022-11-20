@@ -1,12 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pomelo.Security.CaWeb.Models;
 using Pomelo.Security.CaWeb.Models.ViewModels;
+using Pomelo.Security.Ssl;
 
 namespace Pomelo.Security.CaWeb.Controllers
 {
@@ -83,6 +86,69 @@ namespace Pomelo.Security.CaWeb.Controllers
             }
 
             return ApiResult(request);
+        }
+
+        [HttpPost]
+        public async ValueTask<ApiResult<Request>> Post(
+            [FromServices] IConfiguration configuration,
+            [FromServices] CaContext db,
+            [FromServices] OpenSsl ssl,
+            [FromBody] PostCertificateRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            var tempPath = configuration["OpenSsl:TempPath"];
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+
+            var certRequest = new Request 
+            {
+                CsrContent = request.CsrContent,
+                Username = User.Identity.Name,
+                Status = RequestStatus.Pending,
+                CommonName = request.CommonName,
+                Type= request.Type,
+                RequestMessage= request.RequestMessage,
+                Dns = request.Dns
+            };
+
+            var guid = Guid.NewGuid();
+            var certRandom = guid.ToString();
+            var csrPath = Path.Combine(tempPath, certRandom + ".csr");
+            if (request.Mode == RequestMode.FromInfo)
+            {
+                var password = certRandom.Replace("-", "").Substring(0, 8);
+                var keyPath = Path.Combine(tempPath, certRandom + ".key");
+
+                // Generate csr
+                ssl.GenerateRsaPrivateKey(keyPath, password);
+                ssl.GenerateCsr(
+                    csrPath,
+                    keyPath, 
+                    password, 
+                    request.Country, 
+                    request.Province,
+                    request.City, 
+                    request.Organization, 
+                    request.OrganizationUnit, 
+                    request.CommonName, 
+                    request.Email);
+                
+                certRequest.CsrContent = System.IO.File.ReadAllText(csrPath);
+                System.IO.File.Delete(csrPath);
+                certRequest.KeyContent = System.IO.File.ReadAllText(keyPath);
+                System.IO.File.Delete(keyPath);
+                certRequest.KeyPassword = password;
+            }
+
+            await System.IO.File.WriteAllTextAsync(csrPath, request.CsrContent, cancellationToken);
+            request.CommonName = ssl.GetCommonNameFromCsr(csrPath);
+
+            db.Requests.Add(certRequest);
+            await db.SaveChangesAsync(cancellationToken);
+
+            return ApiResult(certRequest);
         }
     }
 }

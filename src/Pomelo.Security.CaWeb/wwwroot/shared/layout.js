@@ -1,3 +1,8 @@
 ﻿Layout({
-    style: true
+    style: true,
+    data() {
+        return {
+            active: 'home'
+        };
+    }
 });
