@@ -330,6 +330,7 @@ namespace Pomelo.Security.CaWeb.Controllers
             cert.CrtFile = await System.IO.File.ReadAllTextAsync(crtPath, cancellationToken);
 
             db.Certificates.Add(cert);
+            certRequest.CertificateId = cert.Id;
             await db.SaveChangesAsync(cancellationToken);
 
             foreach (var file in tempFiles)
