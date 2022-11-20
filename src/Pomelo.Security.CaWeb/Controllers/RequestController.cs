@@ -331,6 +331,7 @@ namespace Pomelo.Security.CaWeb.Controllers
 
             db.Certificates.Add(cert);
             certRequest.CertificateId = cert.Id;
+            certRequest.Status = RequestStatus.Approved;
             await db.SaveChangesAsync(cancellationToken);
 
             foreach (var file in tempFiles)
